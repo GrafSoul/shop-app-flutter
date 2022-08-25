@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 
 class Product {
   final String id;
@@ -9,12 +9,11 @@ class Product {
   bool isFavorite;
 
   Product({
-    required this.id, 
-    required this.title, 
-    required this.description, 
-    required this.price, 
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.price,
     required this.imageUrl,
     this.isFavorite = false,
-  })
-
+  });
 }
