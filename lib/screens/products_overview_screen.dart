@@ -1,9 +1,11 @@
 // ignore_for_file: avoid_print,
 
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
+import '../widgets/badge.dart';
+import '../providers/cart.dart';
 // import '../providers/products.dart';
 
 // ignore: constant_identifier_names
@@ -17,7 +19,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
-  var _showFavoritesOnly = false;
+  var _showOnlyFavorites = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +32,32 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       appBar: AppBar(
         title: const Text('My Shop'),
         actions: <Widget>[
+          Consumer<Cart>(
+            builder: (_, cart, child) => Badge(
+              value: cart.itemCount.toString(),
+              color: Theme.of(context).colorScheme.secondary,
+              child: child,
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {},
+            ),
+          ),
           PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) => {
+            onSelected: (FilterOptions selectedValue) {
               setState(() {
                 if (selectedValue == FilterOptions.Favorites) {
-                  // productsContainer.showFavoritesOnly(),
-                  _showFavoritesOnly = true;
+                  _showOnlyFavorites = true;
                 } else {
-                  // productsContainer.showAll(),
-                  _showFavoritesOnly = false;
+                  _showOnlyFavorites = false;
                 }
-                print(selectedValue);
-              }),
+              });
             },
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(
+              Icons.more_vert,
+            ),
             itemBuilder: (_) => [
               const PopupMenuItem(
                 value: FilterOptions.Favorites,
@@ -58,7 +72,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       body: ProductsGrid(
-        showFavs: _showFavoritesOnly,
+        showFavs: _showOnlyFavorites,
       ),
     );
   }
