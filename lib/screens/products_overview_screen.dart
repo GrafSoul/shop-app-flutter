@@ -8,7 +8,7 @@ import './cart_screen.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 import '../providers/cart.dart';
-// import '../providers/products.dart';
+
 
 // ignore: constant_identifier_names
 enum FilterOptions { Favorites, All }
